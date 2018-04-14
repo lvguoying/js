@@ -56,7 +56,7 @@ module.exports = {
         }
         ]
     },
-    watchOptinos: {
+    watchOptions: {
         poll: 1000,
         aggregateTimeout: 500,
         ignored: /node_modules/
