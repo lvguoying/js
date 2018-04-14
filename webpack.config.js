@@ -20,11 +20,11 @@ module.exports = {
         new ExtractTextPlugin('./css/main.css'),
         new HtmlWebpackPlugin({
             title: "index",
-            minify:{
-                removeAttributeQuotes:true
+            minify: {
+                removeAttributeQuotes: true
             },
-            hash:true,
-            template:'./src/index.html'
+            hash: true,
+            template: './src/index.html'
 
         })
     ],
@@ -32,25 +32,33 @@ module.exports = {
         rules: [{
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
-                fallback:"style-loader",
-                use:"css-loader",
-                publicPath:"../"
+                fallback: "style-loader",
+                use: [{
+                    loader: "css-loader",
+                    options: { importLoader: 1 }
+                }, 'postcss-loader'],
+                publicPath: "../"
             })
-        },{
-            test:/\.(png|jpg|gif)$/,
-            use:[{
-                loader:  'file-loader',
-                options:{
-                    limit:50,
-                    outputPath:'imgage/'
+        }, {
+            test: /\.(png|jpg|gif)$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    limit: 50,
+                    outputPath: 'imgage/'
                 }
             }]
-          
+
         },
         {
-            test:/\.(html|htm)$/i,
-            loader:'html-withimg-loader'
+            test: /\.(html|htm)$/i,
+            loader: 'html-withimg-loader'
         }
-    ]
+        ]
+    },
+    watchOptinos: {
+        poll: 1000,
+        aggregateTimeout: 500,
+        ignored: /node_modules/
     }
 }
